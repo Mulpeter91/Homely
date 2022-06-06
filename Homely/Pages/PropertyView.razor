@@ -1,0 +1,14 @@
+﻿@page "/property/{PropertyId:guid}"
+@inject IPropertyRepository _property
+
+<h3>@property.Address.Postcode</h3>
+
+@code {
+    [Parameter] public Guid PropertyId { get; set; }
+    private Property property;
+
+    protected override void OnInitialized()
+    {
+        property = _property.GetProperty(PropertyId);
+    }
+}

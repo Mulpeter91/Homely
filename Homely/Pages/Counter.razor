@@ -1,0 +1,55 @@
+﻿@page "/counter"
+@inject SingletonService _singletonService
+@inject TransientService _transietService
+@inject IJSRuntime _js
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+<p>Singleton count: @_singletonService.Value.ToString()</p>
+<p>Transient count: @_transietService.Value.ToString()</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<button class="btn btn-primary" @onclick="IncrementCountWithJavaScript">Click me javascript</button>
+
+<input type="number" @bind="currentCount"/>
+
+@code {
+    private int currentCount = 0;
+    private static int currentCountStatic = 0;
+    IJSObjectReference module;
+
+    private async Task IncrementCount()
+    {
+        await _js.InvokeVoidAsync("my_csharp_function");
+        currentCount++;
+        currentCountStatic++;
+        _singletonService.Value += 1;
+        _transietService.Value += 1;
+    }
+
+    [JSInvokable]
+    public async void IncrementCountJsInvokable()
+    {
+        //javascript isolation        
+        module = await _js.InvokeAsync<IJSObjectReference>("import", "./js/counter.js");
+        await module.InvokeVoidAsync("displayAlert", "hello world");
+
+        currentCount++;
+        currentCountStatic++;
+        _singletonService.Value += 1;
+        _transietService.Value += 1;
+    }
+
+    private async Task IncrementCountWithJavaScript()
+    {
+        await _js.InvokeVoidAsync("csharp_instance_invocation", DotNetObjectReference.Create(this));
+    }
+
+    [JSInvokable]
+    public static Task<int> GetCurrentCount()
+    {
+        return Task.FromResult(currentCountStatic);
+    }
+}

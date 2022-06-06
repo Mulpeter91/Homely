@@ -1,0 +1,16 @@
+﻿<div>
+    <p>Eircode: @Property.Address.Postcode</p>
+    <p>Type: @Property.Specifications.PropertyType</p>
+    @if (DisplayButtons)
+    {
+        <div>
+            <button @onclick="@(() => DeleteProperty.InvokeAsync(Property))">Delete</button>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public Property Property { get; set; }
+    [Parameter] public bool DisplayButtons { get; set; } = false;
+    [Parameter] public EventCallback<Property> DeleteProperty { get; set; }
+}

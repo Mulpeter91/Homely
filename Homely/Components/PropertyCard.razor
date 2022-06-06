@@ -1,0 +1,22 @@
+﻿<a href="@propertyUrl">
+    <div class="card">
+        <img class="card-img-top" src="@Property.Images[0]" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@Property.Address.Postcode</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">@Property.Specifications.PropertyType</li>
+            <li class="list-group-item">County @Property.Address.County</li>
+        </ul>
+    </div>
+</a>
+
+@code {
+    [Parameter] public Property Property { get; set; }
+    private string propertyUrl = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        propertyUrl = $"property/{Property.Id}";
+    }
+}

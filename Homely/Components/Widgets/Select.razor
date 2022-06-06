@@ -1,0 +1,15 @@
+﻿<div>
+    <h6>@title</h6>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option selected>All</option>
+        @foreach (var option in Options)
+        {
+            <option>@option</option>
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter] public string title { get; set; } = "Select";
+    [Parameter] public List<string> Options { get; set; }
+}

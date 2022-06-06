@@ -1,0 +1,94 @@
+﻿@page "/practice"
+@inject SingletonService _singletonService
+@inject IPropertyRepository _property
+
+<h1>Hello, world!</h1>
+<p>Singleton count: @_singletonService.Value.ToString()</p>
+
+Welcome to your new app @CustomToUpper(name) /  @Utilities.CustomToLower(name)
+
+<p>Let add 2 + 2 = @(2 + 2)</p>
+
+<button @onclick="@(() => Console.WriteLine("clicked"))">Clicked me</button>
+
+<button @onclick="@WriteLog">Clicked me</button>
+
+<div>
+    <h3>Properties</h3>
+    <PropertyList Properties="properties">
+        <Loading />
+    </PropertyList>
+    <button @onclick="AddNewProperty">Add New Property</button>
+</div>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<div>
+    <h2>Create Property</h2>
+    <DummyTextbox placeholder="property eircode" disabled="true" />
+    <DummyTextbox @attributes="@dummyTextboxAttributes" />
+</div>
+
+@code {
+
+    private List<Property> properties;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+
+        properties = _property.GetProperties();
+        //properties = new List<Property>
+        //{
+        //     new Property(){ Eircode = "D04 42A1", PropertyType = PropertyType.House },
+        //     new Property(){ Eircode = "K01 52B1", PropertyType = PropertyType.Apartment },
+        //     new Property(){ Eircode = "W93 43Z2", PropertyType = PropertyType.House }
+        //};
+    }
+
+    private void AddNewProperty()
+    {
+        properties.Add(new()
+            {
+                //Eircode = "Added_" + properties.Count.ToString(),
+                //PropertyType = PropertyType.Apartment
+
+            });
+    }
+
+    Dictionary<string, object> dummyTextboxAttributes = new Dictionary<string, object>() {
+                                     { "placeholder", "property eircode 2" },
+                                     { "disabled", "true" }};
+
+    string name = "Rob";
+
+    Property apartment = new Property
+    {
+        //Eircode = "D03 AP84",
+        //PropertyType = PropertyType.Apartment
+    };
+
+    // function with parameters needs to be called explicity () =>
+    string CustomToUpper(string value) => value.ToUpper();
+
+    void WriteLog()
+    {
+        Console.WriteLine("clicked from method");
+    }
+
+    public class StringUtilities
+    {
+        public static string CustomToLower(string value) => value.ToLower();
+    }
+
+    // runs when the razor file loads
+    //protected override void OnInitialized()
+    //{
+    //    properties = new List<Property>
+    //    {
+    //         new Property(){ Eircode = "D04 42A1", PropertyType = PropertyType.House },
+    //         new Property(){ Eircode = "K01 52B1", PropertyType = PropertyType.Apartment },
+    //         new Property(){ Eircode = "W93 43Z2", PropertyType = PropertyType.House }
+    //    };
+    //}    
+}

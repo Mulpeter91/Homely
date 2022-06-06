@@ -1,0 +1,27 @@
+﻿@typeparam TItem
+
+@if (List == null)
+{
+    @*<Loading />*@
+    @if (LoadingIcon != null)
+    {
+        @LoadingIcon
+    }
+    else
+    {
+        <p>Child component missing</p>
+    }
+}
+else
+{
+    @foreach (var element in List)
+    {
+        @ElementTemplate(element);
+    }
+}
+
+@code {
+    [Parameter] public RenderFragment LoadingIcon { get; set; }
+    [Parameter] public List<TItem> List { get; set; }
+    [Parameter] public RenderFragment<TItem> ElementTemplate { get;set; }
+}

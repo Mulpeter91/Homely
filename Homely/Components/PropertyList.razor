@@ -1,0 +1,75 @@
+﻿@inject IJSRuntime _js
+
+<input type="checkbox" @bind="displayButtons" />
+
+<GenericList List="Properties">
+    <LoadingIcon>
+        <Loading />
+    </LoadingIcon>
+    <ElementTemplate Context="property">
+        <ViewProperty Property="property" DisplayButtons="displayButtons" DeleteProperty="DeleteProperty"/>
+    </ElementTemplate>
+</GenericList>
+
+<Confirmation @ref="confirmation" onConfirm="onConfirm" onCancel="onCancel">
+    <div>Do you wish to delete this property: @propertyToBeDeleted.Address.Postcode ?</div>
+</Confirmation>
+
+@code {
+    Confirmation confirmation;
+
+    [Parameter] public List<Property> Properties { get; set; }
+    //if only one fragment you can give it the implicit name of childcontent
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    bool displayButtons = false;
+
+    Property propertyToBeDeleted;
+    private async Task DeleteProperty(Property property)
+    {
+        confirmation.Show();
+        await _js.MyFunction("test message");
+        var confirmed = await _js.Confirm($"Are you such you want to delete a property {property.Address.Postcode}?");
+
+        if (confirmed)
+        {
+            propertyToBeDeleted = property;
+            //Properties.Remove(property);
+
+        }
+    }
+
+    //protected async override Task OnInitializedAsync()
+    //{
+    //    await Task.Delay(3500);
+
+    //    Console.WriteLine("OnInitialized. Property.Count = " + Properties.Count.ToString());
+    //}
+
+    //protected override void OnParametersSet()
+    //{
+    //    Console.WriteLine("OnParametersSet. Properties.Count = " + Properties.Count.ToString());
+    //}
+
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    Console.WriteLine("OnAfterRender. FirstRender = " + firstRender);
+    //}
+
+    private void onConfirm()
+    {
+        Properties.Remove(propertyToBeDeleted);
+        confirmation.Hide();
+        propertyToBeDeleted = null;
+    }
+
+    private void onCancel()
+    {
+        confirmation.Hide();
+        propertyToBeDeleted = null;
+    }
+
+    protected override bool ShouldRender()
+    {
+        return true;
+    }
+}

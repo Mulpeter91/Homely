@@ -1,0 +1,11 @@
+﻿#header {
+    border: 2px solid green;
+}
+
+#logo {
+    max-width: 180px;
+}
+
+#account-icon {
+    width: 25px;
+}

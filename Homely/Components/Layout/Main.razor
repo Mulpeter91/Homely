@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+@*<div class="page">*@
+@*    <div class="sidebar">
+        <NavMenu />
+    </div>*@
+
+    <Header />
+    <main>
+        @Body
+
+        @*<CascadingValue Value="@state">
+             @Body
+        </CascadingValue>*@
+    </main>
+@*</div>*@
+
+@code{
+    ApplicationState state = new ApplicationState();
+}

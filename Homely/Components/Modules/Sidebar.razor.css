@@ -1,0 +1,16 @@
+﻿.sidebar {
+    border: 2px solid purple;
+    background-color: lightpink
+}
+
+    .sidebar .sidebar-content {
+        padding: 20px;
+    }
+
+        .sidebar .sidebar-content .sidebar-header {
+            padding: 20px;
+        }
+
+        .sidebar .sidebar-content .sidebar-main {
+            padding: 20px;
+        }

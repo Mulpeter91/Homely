@@ -1,0 +1,25 @@
+﻿<div class="sidebar">
+    <div class="sidebar-content">
+        <div>
+            @Header
+        </div>
+        <div>
+            <Select Title="County" Options="counties"/>
+        </div>
+        <div>
+            <Select Title="Property Type" Options="propertyTypes"/>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Header { get;set; }
+    List<string> counties;
+    List<string> propertyTypes;
+
+    protected override void OnInitialized()
+    {
+        counties = Enum.GetNames(typeof(Counties)).ToList();
+        propertyTypes = Enum.GetNames(typeof(PropertyTypes)).ToList();
+    }
+}
