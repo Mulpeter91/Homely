@@ -2,6 +2,6 @@
 {
     public class ApplicationState
     {
-        public string Colour { get; set; }
+        public string? Color { get; set; }
     }
 }
