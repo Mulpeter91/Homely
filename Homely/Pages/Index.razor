@@ -7,7 +7,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2 g-0">
-                <Sidebar Header="Filter" />
+                <Sidebar Header="Filter" 
+                    CountyFilter="ApplyCountyFilter"
+                    PropertyTypeFilter="ApplyPropertyTypeFilter"/>
             </div>
             <div class="col-lg-10">
                 <div class="container-fluid g-0">
@@ -34,5 +36,27 @@
     protected override void OnInitialized()
     {
         properties = _property.GetProperties();
+    }
+
+    public void ApplyCountyFilter(ChangeEventArgs e)
+    {
+        properties = _property.GetProperties();
+        Counties filter;
+
+        if(Enum.TryParse<Counties>(e.Value.ToString(), out filter))
+        {
+            properties = properties.Where(p => p.Address.County == filter);
+        }
+    }
+
+    public void ApplyPropertyTypeFilter(ChangeEventArgs e)
+    {
+        properties = _property.GetProperties();
+        PropertyTypes filter;
+
+        if(Enum.TryParse<PropertyTypes>(e.Value.ToString(), out filter))
+        {
+            properties = properties.Where(p => p.Specifications.PropertyType == filter);
+        }
     }
 }

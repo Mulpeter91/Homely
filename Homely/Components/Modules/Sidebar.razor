@@ -4,16 +4,19 @@
             @Header
         </div>
         <div>
-            <Select Title="County" Options="counties"/>
+            <Selector Title="County" Options="counties" onSelection="CountyFilter"/>
         </div>
         <div>
-            <Select Title="Property Type" Options="propertyTypes"/>
+            <Selector Title="Property Type" Options="propertyTypes" onSelection="PropertyTypeFilter"/>
         </div>
     </div>
 </div>
 
 @code {
     [Parameter] public string Header { get;set; }
+    [Parameter] public EventCallback<ChangeEventArgs> CountyFilter { get; set; }
+    [Parameter] public EventCallback<ChangeEventArgs> PropertyTypeFilter { get; set; }
+
     List<string> counties;
     List<string> propertyTypes;
 
