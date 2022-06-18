@@ -1,0 +1,40 @@
+﻿@page "/account/login"
+
+@inject NavigationManager _navigation
+
+<div class="container-sm" style="max-width: 500px; padding-top: 50px;">
+    <h1 style="text-align:center">Log In</h1>
+    <br />
+    <form>
+        <div class="mb-3">
+            <TextField title="Email" type="text" onFocusOut="@onEmailFocusOut" />
+        </div>
+        <div class="mb-3">
+            <TextField title="Password" type="password" onFocusOut="onPasswordFocusOut" />
+        </div>
+        <div class="mb-3 form-check">
+            <Checkbox text="remember me" />
+        </div>
+        <div style="text-align: center">
+            <Button text="Log in" type="btn-primary" />
+            <Button text="Sign up" type="btn-secondary" onClick="onSignUpClick" />
+        </div>
+    </form>
+</div>
+
+@code {
+    private void onSignUpClick()
+    {
+        _navigation.NavigateTo("/account/signup");
+    }
+
+    private void onEmailFocusOut()
+    {
+        Console.WriteLine("Email");
+    }
+
+    private void onPasswordFocusOut()
+    {
+        Console.WriteLine("Password");
+    }
+}

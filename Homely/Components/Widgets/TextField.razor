@@ -1,0 +1,9 @@
+﻿<label for="example" class="form-label">@title</label>
+<input @onfocusout="onFocusOut" type="@type" class="form-control" id="example">
+
+@code {
+    [Parameter] public string title { get; set; } = "Input";
+    [Parameter] public string type { get; set; } = "text";
+    [Parameter] public string placeholder { get; set; } = "person@gmail.com";
+    [Parameter] public EventCallback onFocusOut { get; set; }
+}

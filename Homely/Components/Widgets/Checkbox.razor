@@ -1,0 +1,7 @@
+﻿<input type="checkbox" class="form-check-input" @onchange="onCheck">
+<label class="form-check-label" for="exampleCheck1">@text</label>
+
+@code {
+    [Parameter] public string text { get; set; } = "Checkbox";
+    [Parameter] public EventCallback onCheck { get; set; }
+}
