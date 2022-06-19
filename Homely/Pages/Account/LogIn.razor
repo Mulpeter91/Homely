@@ -7,34 +7,57 @@
     <br />
     <form>
         <div class="mb-3">
-            <TextField title="Email" type="text" onFocusOut="@onEmailFocusOut" />
+            <TextField title="Email" onFocusOut="onEmailFocusOut" />
         </div>
         <div class="mb-3">
-            <TextField title="Password" type="password" onFocusOut="onPasswordFocusOut" />
+            <PasswordField title="Password" onFocusOut="onPasswordFocusOut" />
         </div>
         <div class="mb-3 form-check">
-            <Checkbox text="remember me" />
+            <Checkbox text="remember me" onCheck="onRememberMeCheck" />
         </div>
         <div style="text-align: center">
-            <Button text="Log in" type="btn-primary" />
+            <Button text="Log in" type="btn-primary" onClick="onLoginClick"/>
             <Button text="Sign up" type="btn-secondary" onClick="onSignUpClick" />
         </div>
     </form>
 </div>
 
 @code {
+    private string? userEmail;
+    private string? userPassword;
+    private bool rememberMe; //this would need to come from memory
+
+    protected override void OnInitialized()
+    {
+        userEmail = string.Empty;
+        userPassword = string.Empty;
+    }
+
+    private void onLoginClick()
+    {
+        Console.WriteLine($"logging in with: {userEmail} + {userPassword}");
+    } 
+
+    private void onEmailFocusOut(string input)
+    {
+        userEmail = input;
+        Console.WriteLine($"login email: {userEmail}");
+    }
+
+    private void onPasswordFocusOut(string input)
+    {
+        userPassword = input;
+        Console.WriteLine($"login password: {userPassword}");
+    }
+
     private void onSignUpClick()
     {
         _navigation.NavigateTo("/account/signup");
     }
 
-    private void onEmailFocusOut()
+    private void onRememberMeCheck(bool input)
     {
-        Console.WriteLine("Email");
-    }
-
-    private void onPasswordFocusOut()
-    {
-        Console.WriteLine("Password");
+        rememberMe = input;
+        Console.WriteLine($"login remember me: {rememberMe}");
     }
 }

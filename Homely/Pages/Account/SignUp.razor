@@ -1,8 +1,58 @@
 ﻿@page "/account/signup"
 @page "/account/sign-up"
 
-<h3>Sign Up</h3>
+@inject IJSRuntime js
+
+<div class="container-sm" style="max-width: 500px; padding-top: 50px;">
+    <h1 style="text-align:center">Sign up</h1>
+    <br />
+    <form>
+        <div class="mb-3">
+            <TextField title="Name" 
+                onFocusOut="onUsernameFocusOut" 
+                placeholder="John Doe"/>
+        </div>
+        <div class="mb-3">
+            <TextField title="Email" 
+                onFocusOut="onUserEmailFocusOut" 
+                placeholder="john@gmail.com"/>
+        </div>
+        <div style="text-align: center">
+            <Button text="Go Back" type="btn-primary" onClick="onGoBack"/>
+            <Button text="Sign up" type="btn-secondary" onClick="onSignUpClick" />
+        </div>
+    </form>
+</div>
 
 @code {
+    private string username;
+    private string userEmail;
 
+    protected override void OnInitialized()
+    {
+        username = string.Empty;
+        userEmail = string.Empty;
+    }
+
+    private void onSignUpClick()
+    {
+        Console.WriteLine($"sign up info: {username} + {userEmail}");
+    } 
+
+    private void onUsernameFocusOut(string input)
+    {
+        username = input;
+        Console.WriteLine($"sign up name: {username}");
+    }
+
+    private void onUserEmailFocusOut(string input)
+    {
+        userEmail = input;
+        Console.WriteLine($"sign up email: {userEmail}");
+    }
+
+    private void onGoBack()
+    {
+        js.InvokeVoidAsync("history.back");
+    }
 }

@@ -1,7 +1,19 @@
-﻿<input type="checkbox" class="form-check-input" @onchange="onCheck">
+﻿<input @bind-value="isChecked" 
+       @onclick="OnCheck"
+       type="checkbox" 
+       class="form-check-input" >
+
 <label class="form-check-label" for="exampleCheck1">@text</label>
 
 @code {
     [Parameter] public string text { get; set; } = "Checkbox";
-    [Parameter] public EventCallback onCheck { get; set; }
+    [Parameter] public EventCallback<bool> onCheck { get; set; }
+
+    public bool isChecked;
+
+    private void OnCheck()
+    {
+        isChecked = !isChecked;
+        onCheck.InvokeAsync(isChecked);
+    }
 }

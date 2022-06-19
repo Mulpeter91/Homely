@@ -1,14 +1,30 @@
 ﻿@page "/property/{PropertyId:guid}"
 @inject IPropertyRepository _property
 
-<h3>@property.Address.Postcode</h3>
+<div class="container" style="border: 1px solid orange;">
+    <div class="row">
+        <div class="col-lg-6" style="border: 1px solid purple">
+            <Carousel ImagesWithDescription="CarouselPayload"/>
+        </div>
+        <div class="col-lg-6" style="border: 1px solid green">
+            <h3>@property.Address.Postcode</h3>
+        </div>
+    </div>
+</div>
 
 @code {
     [Parameter] public Guid PropertyId { get; set; }
     private Property property;
+    private Dictionary<string, string> CarouselPayload;
 
     protected override void OnInitialized()
     {
         property = _property.GetProperty(PropertyId);
+        CarouselPayload = new Dictionary<string, string>();
+
+        foreach(string image in property.Images)
+        {
+            CarouselPayload.Add(image, "this is image: ");
+        }
     }
 }
