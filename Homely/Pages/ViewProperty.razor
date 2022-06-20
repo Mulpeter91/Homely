@@ -1,0 +1,36 @@
+﻿@page "/property/{PropertyId:guid}"
+@inject IPropertyRepository _property
+@inject NavigationManager _navigation
+
+<div class="container" style="border: 1px solid orange; margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-8" style="border: 1px solid purple">
+            <Carousel PropertyImages="@property.Images"/>
+        </div>
+        <div class="col-lg-4" style="border: 1px solid green">
+            <div style="padding: 15px;">
+                <h3>@property.Address.Postcode</h3>
+                <article>@property.Description</article>
+                <br />
+                <p><strong>Posted:</strong> @property.Created.ToString("dd/MM/yyyy")</p>
+                <Button text="Apply" type="btn-success" onClick="onApplyClick"/>
+            </div>
+            <Accordian Address="@property.Address" Specifications="@property.Specifications" />            
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Guid PropertyId { get; set; }
+    private Property property;
+
+    protected override void OnInitialized()
+    {
+        property = _property.GetProperty(PropertyId);
+    }
+
+    public void onApplyClick()
+    {
+        _navigation.NavigateTo($"account/review-application/{property.Id}");
+    }
+}

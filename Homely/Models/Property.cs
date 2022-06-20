@@ -8,7 +8,14 @@
         public DateTime Created { get; set; }
         public Address? Address { get; set; }
         public PropertySpecifications? Specifications { get; set; }
-        public List<string>? Images { get; set; }
+        public List<Image>? Images { get; set; }
+    }
+
+    public class Image
+    {
+        public string? ImageBase64 { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
     }
 
     public class Address
