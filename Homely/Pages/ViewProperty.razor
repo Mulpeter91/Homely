@@ -5,7 +5,7 @@
 <div class="container" style="border: 1px solid orange; margin-top: 20px;">
     <div class="row">
         <div class="col-lg-8" style="border: 1px solid purple">
-            <Carousel PropertyImages="@property.Images"/>
+            <Carousel PropertyImages="@property.Images" />
         </div>
         <div class="col-lg-4" style="border: 1px solid green">
             <div style="padding: 15px;">
@@ -14,8 +14,16 @@
                 <br />
                 <p><strong>Posted:</strong> @property.Created.ToString("dd/MM/yyyy")</p>
                 <Button text="Apply" type="btn-success" onClick="onApplyClick"/>
+                @*<AuthorizeView>
+                    <Authorized>
+                        <Button text="Apply" type="btn-success" onClick="onApplyClick"/>
+                    </Authorized>
+                    <NotAuthorized>
+                        <Button text="Log in" type="btn-secondary" onClick="onLoginClick"/>
+                    </NotAuthorized>
+                </AuthorizeView>*@
             </div>
-            <Accordian Address="@property.Address" Specifications="@property.Specifications" />            
+            <Accordian Address="@property.Address" Specifications="@property.Specifications" />
         </div>
     </div>
 </div>
@@ -32,5 +40,10 @@
     public void onApplyClick()
     {
         _navigation.NavigateTo($"account/review-application/{property.Id}");
+    }
+
+    public void onLoginClick()
+    {
+        _navigation.NavigateTo($"authentication/login");
     }
 }

@@ -1,8 +1,9 @@
-﻿@page "/account/signup"
-@page "/account/sign-up"
+﻿@page "/authentication/signup"
+@page "/authentication/sign-up"
 
 @inject IJSRuntime js
 
+<Button text="Go Back" type="btn-info" onClick="onGoBack"/>
 <div class="container-sm" style="max-width: 500px; padding-top: 50px;">
     <h1 style="text-align:center">Sign up</h1>
     <br />
@@ -17,8 +18,7 @@
                 onFocusOut="onUserEmailFocusOut" 
                 placeholder="john@gmail.com"/>
         </div>
-        <div style="text-align: center">
-            <Button text="Go Back" type="btn-primary" onClick="onGoBack"/>
+        <div style="text-align: center">            
             <Button text="Sign up" type="btn-secondary" onClick="onSignUpClick" />
         </div>
     </form>

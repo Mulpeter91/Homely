@@ -7,15 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Components\Layout\Footer.razor.css" />
     <None Remove="Components\Modules\Sidebar.razor.css" />
-    <None Remove="Pages\Index.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Components\Layout\Footer.razor.css" />
     <Content Include="Components\Modules\Sidebar.razor.css" />
-    <Content Include="Pages\Index.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

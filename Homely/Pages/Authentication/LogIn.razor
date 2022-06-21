@@ -1,7 +1,9 @@
-﻿@page "/account/login"
+﻿@page "/authentication/login"
 
 @inject NavigationManager _navigation
+@inject IJSRuntime js
 
+<Button text="Go Back" type="btn-info" onClick="onGoBack"/>
 <div class="container-sm" style="max-width: 500px; padding-top: 50px;">
     <h1 style="text-align:center">Log In</h1>
     <br />
@@ -52,12 +54,17 @@
 
     private void onSignUpClick()
     {
-        _navigation.NavigateTo("/account/signup");
+        _navigation.NavigateTo("/authentication/signup");
     }
 
     private void onRememberMeCheck(bool input)
     {
         rememberMe = input;
         Console.WriteLine($"login remember me: {rememberMe}");
+    }
+
+    private void onGoBack()
+    {
+        js.InvokeVoidAsync("history.back");
     }
 }

@@ -1,28 +1,23 @@
 ﻿<div class="sidebar">
     <div class="sidebar-content">
         <div>
-            @Header
+            <NavLink class="nav-link" href="account/applications">Applications</NavLink>
         </div>
         <div>
-            <Selector Title="County" Options="counties" onSelection="CountyFilter"/>
+            <NavLink class="nav-link" href="account/sell">Sell</NavLink>
         </div>
         <div>
-            <Selector Title="Property Type" Options="propertyTypes" onSelection="PropertyTypeFilter"/>
+            <NavLink class="nav-link" href="account/profile">Profile</NavLink>
+        </div>
+        <div>
+            <NavLink class="nav-link" href="account/settings">Settings</NavLink>
+        </div>
+        <div>
+            <NavLink class="nav-link" href="practice">Pratice</NavLink>
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter] public string Header { get;set; }
-    [Parameter] public EventCallback<ChangeEventArgs> CountyFilter { get; set; }
-    [Parameter] public EventCallback<ChangeEventArgs> PropertyTypeFilter { get; set; }
 
-    List<string> counties;
-    List<string> propertyTypes;
-
-    protected override void OnInitialized()
-    {
-        counties = Enum.GetNames(typeof(Counties)).ToList();
-        propertyTypes = Enum.GetNames(typeof(PropertyTypes)).ToList();
-    }
 }

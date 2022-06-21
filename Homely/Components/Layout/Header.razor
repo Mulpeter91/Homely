@@ -11,17 +11,20 @@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="about">About</NavLink>
                 </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="account/applications">Account</NavLink>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                         <img id="account-icon" src="images/icons/account.png" alt="account sign in icon" />
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <NavLink class="nav-link" href="account/login">Log In</NavLink>
+                            <NavLink class="nav-link" href="authentication/login">Log In</NavLink>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <NavLink class="nav-link" href="account/signup">Sign Up</NavLink>
+                            <NavLink class="nav-link" href="authentication/signup">Sign Up</NavLink>
                         </li>
                     </ul>
                 </li>
@@ -29,3 +32,7 @@
         </div>
     </div>
 </nav>
+
+@code {
+
+}
