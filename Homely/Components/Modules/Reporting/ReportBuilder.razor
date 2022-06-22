@@ -1,0 +1,29 @@
+﻿@typeparam GenericItem
+
+<table class="table" style="width: 100%;">
+    <thead>
+        @ReportTableTemplate
+    </thead>
+    <tbody>
+        @if (List.Count < 0)
+        {
+            <tr style="max-width: 99%;">
+                @EmptyListTemplate
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in List)
+            {
+                @ReportRowTemplate(item)
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public List<GenericItem> List { get; set; }
+    [Parameter] public RenderFragment ReportTableTemplate { get; set; }
+    [Parameter] public RenderFragment<GenericItem> ReportRowTemplate { get; set; }
+    [Parameter] public RenderFragment EmptyListTemplate { get; set; }
+}

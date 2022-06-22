@@ -31,13 +31,12 @@ namespace Homely
             services.AddSingleton<SingletonService>();
             services.AddTransient<TransientService>();
             services.AddTransient<IPropertyRepository, PropertyRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
     }
 }
 
-
-
-
-
-
-
+//TODO
+// Fix up user list page -> view user -> Generic Report builder
+// User profile page
+// Fix up code imported over
