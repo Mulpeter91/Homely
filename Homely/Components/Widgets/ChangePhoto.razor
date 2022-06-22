@@ -1,6 +1,6 @@
 ﻿<div>
     <div style="margin: 10px;">
-        <img class="profile-image" src="data:image/png;base64, @ImageBase64" style="height: 175px; width: 175px; border-radius: 50%;" />
+        <img class="profile-image" src="@ImageBase64" style="height: 175px; width: 175px; border-radius: 50%;" />
     </div>
     <div>
         <InputFile accept=".jpg,.jpeg,.png" OnChange="OnChange" />
@@ -8,9 +8,8 @@
 </div>
 
 @code {
-    [Parameter] public string Label { get; set; } = "Image";
     [Parameter] public EventCallback<string> OnSelectedImage { get; set; }
-    [Parameter] public string ImageBase64 { get; set; }
+    [Parameter] public string ImageBase64 { get; set; } = string.Empty;
     private string imageSource = string.Empty;
 
     async Task OnChange(InputFileChangeEventArgs e)
@@ -22,7 +21,9 @@
             var buffer = new byte[imageFile.Size];
             await imageFile.OpenReadStream().ReadAsync(buffer);
             ImageBase64 = Convert.ToBase64String(buffer);
+            ImageBase64 = "data:image/jpeg;base64," + ImageBase64;
             await OnSelectedImage.InvokeAsync(ImageBase64);
+
             StateHasChanged();
         }
     }

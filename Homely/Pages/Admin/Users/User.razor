@@ -1,0 +1,34 @@
+﻿@page "/admin/user/{UserAccountId:guid}"
+@inject IUserAccountRepository _userAccounts
+
+<div class="page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 g-0">
+                <Sidebar Role="Roles.Admin" />
+            </div>
+            <div class="col-lg-10">
+                <div class="container-fluid g-0">
+                    <h3 style="padding: 10px;">@user.PersonalInformation.FirstName @user.PersonalInformation.Surname</h3>                   
+                    <ChangePhoto OnSelectedImage="OnChangeImage" ImageBase64="@user.PersonalInformation.ProfilePicture"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Guid UserAccountId { get; set; }
+
+    private UserAccount user;
+
+    protected override void OnInitialized()
+    {
+        user = _userAccounts.GetUserAccount(UserAccountId);
+    }
+
+    private void OnChangeImage(string imageBase64)
+    {
+        user.PersonalInformation.ProfilePicture = imageBase64;
+    }
+}

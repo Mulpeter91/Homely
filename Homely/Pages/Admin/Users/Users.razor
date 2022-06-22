@@ -1,0 +1,81 @@
+﻿@page "/admin/users"
+
+@inject IUserAccountRepository repo
+
+<div class="page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 g-0">
+                <Sidebar Role="Roles.Admin" />
+            </div>
+            <div class="col-lg-10">
+                <div class="container-fluid g-0">
+                    <h3 style="padding: 10px;">All @users.Count Users</h3>
+                    <div class="form-inline">
+                        <div class="form-group mb-2">
+                            <label for="title" class="sr-only">Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Movie Title"
+                                   @bind-value="name" @bind-value:event="oninput"
+                                   @onkeypress="@((KeyboardEventArgs e) => TitleKeyPress(e))" />
+                        </div>
+                        <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="SearchUsers">Filter</button>
+                        <button type="button" class="btn btn-danger mb-2 mx-sm-3" @onclick="Clear">Clear</button>
+                    </div>
+
+                    @if (users == null)
+                    {
+                        <LoadingIcon />
+                    }
+                    else
+                    {
+                        <ReportBuilder List="users">
+                            <ReportTableTemplate>
+                                <UsersReportHeader />
+                            </ReportTableTemplate>
+                            <ReportRowTemplate Context="user">
+                                <UsersReportRow User="user" />
+                            </ReportRowTemplate>
+                            <EmptyListTemplate>
+                                No User Information
+                            </EmptyListTemplate>
+                        </ReportBuilder>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private List<UserAccount> users = new List<UserAccount>();
+    private string name = "";
+    private int selectedStatus = 0;
+
+    protected override void OnInitialized()
+    {
+        users = repo.GetUserAccounts();
+    }
+
+    private void TitleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            SearchUsers();
+        }
+    }
+
+    private void SearchUsers()
+    {
+        users = repo.GetUserAccounts().Where(x => x.PersonalInformation.FirstName.Contains(name)).ToList();
+        Console.WriteLine($"name: {name}");
+        Console.WriteLine($"status: {selectedStatus}");
+    }
+
+    private void Clear()
+    {
+        users = repo.GetUserAccounts();
+        name = "";
+        selectedStatus = 0;
+    }
+}

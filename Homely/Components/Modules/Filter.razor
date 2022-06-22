@@ -16,8 +16,8 @@
     [Parameter] public EventCallback<ChangeEventArgs> CountyFilter { get; set; }
     [Parameter] public EventCallback<ChangeEventArgs> PropertyTypeFilter { get; set; }
 
-    List<string> counties;
-    List<string> propertyTypes;
+    List<string> counties = new List<string>();
+    List<string> propertyTypes = new List<string>();
 
     protected override void OnInitialized()
     {

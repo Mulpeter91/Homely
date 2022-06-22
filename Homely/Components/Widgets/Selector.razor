@@ -10,7 +10,7 @@
 </div>
 
 @code {
-    [Parameter] public string title { get; set; } = "Select";
+    [Parameter] public string title { get; set; } = string.Empty;
     [Parameter] public List<string> Options { get; set; }
     [Parameter] public EventCallback<ChangeEventArgs> onSelection { get; set; }
 }

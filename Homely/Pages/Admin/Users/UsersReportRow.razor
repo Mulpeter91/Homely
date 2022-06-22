@@ -1,0 +1,22 @@
+﻿@inject NavigationManager navigation
+
+<tr style="cursor: pointer;" @onclick="onClickRow">
+    <td>
+        <img style="border-radius: 50%; max-width: 25px;"src="@User?.PersonalInformation?.ProfilePicture" />
+    </td>
+    <td scope="row">@User.Id?.ToString().Substring(0, 6).ToUpper()</td>
+    <td>@User?.PersonalInformation?.FirstName @User?.PersonalInformation?.Surname</td>
+    <td>@User?.Created</td>
+    <td>@User?.Role</td>
+    <td>@User?.Applications?.Count</td>
+    <td>0</td>
+</tr>
+
+@code {
+    [Parameter] public UserAccount? User { get; set; }
+
+    private void onClickRow()
+    {
+        navigation.NavigateTo($"admin/user/{User?.Id}");
+    }
+}

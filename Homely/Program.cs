@@ -31,7 +31,7 @@ namespace Homely
             services.AddSingleton<SingletonService>();
             services.AddTransient<TransientService>();
             services.AddTransient<IPropertyRepository, PropertyRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserAccountRepository, UserAccountRepository>();
         }
     }
 }

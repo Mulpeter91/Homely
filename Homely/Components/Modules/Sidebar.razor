@@ -1,23 +1,32 @@
-﻿<div class="sidebar">
+﻿<div class="sidebar" style="height: 100vh;">
     <div class="sidebar-content">
-        <div>
-            <NavLink class="nav-link" href="account/applications">Applications</NavLink>
-        </div>
-        <div>
-            <NavLink class="nav-link" href="account/sell">Sell</NavLink>
-        </div>
-        <div>
-            <NavLink class="nav-link" href="account/profile">Profile</NavLink>
-        </div>
-        <div>
-            <NavLink class="nav-link" href="account/settings">Settings</NavLink>
-        </div>
-        <div>
-            <NavLink class="nav-link" href="practice">Pratice</NavLink>
-        </div>
+        @if (Role == Roles.User) //TODO: User the Authorize / NotAuthorize with roles
+        {
+            <div>
+                <NavLink class="nav-link" href="account/applications">Applications</NavLink>
+            </div>
+            <div>
+                <NavLink class="nav-link" href="account/sell">Sell</NavLink>
+            </div>
+            <div>
+                <NavLink class="nav-link" href="account/profile">Profile</NavLink>
+            </div>
+            <div>
+                <NavLink class="nav-link" href="account/settings">Settings</NavLink>
+            </div>
+            <div>
+                <NavLink class="nav-link" href="practice">Pratice</NavLink>
+            </div>
+        }
+        else
+        {
+            <div>
+                <NavLink class="nav-link" href="admin/users">Users</NavLink>
+            </div>
+        }
     </div>
 </div>
 
 @code {
-
+    [Parameter] public Roles Role { get; set; }
 }

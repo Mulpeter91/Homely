@@ -1,6 +1,19 @@
 ﻿@page "/account/review-application/{PropertyId:guid}"
 
-<h3>Review Application</h3>
+<div class="page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 g-0">
+                <Sidebar Role="Roles.User" />
+            </div>
+            <div class="col-lg-10">
+                <div class="container-fluid g-0">
+                    <h3 style="padding: 10px;">Your Profile</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
     [Parameter] public Guid PropertyId { get; set; }
