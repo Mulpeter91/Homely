@@ -1,4 +1,4 @@
-﻿@page "/account/review-application/{PropertyId:guid}"
+﻿@page "/account/application/{ApplicationId:guid}"
 
 <div class="page">
     <div class="container-fluid">
@@ -8,7 +8,7 @@
             </div>
             <div class="col-lg-10">
                 <div class="container-fluid g-0">
-                    <h3 style="padding: 10px;">Your Profile</h3>
+                    <h3 style="padding: 10px;">Application</h3>                    
                 </div>
             </div>
         </div>
@@ -16,5 +16,5 @@
 </div>
 
 @code {
-    [Parameter] public Guid PropertyId { get; set; }
+    [Parameter] public Guid ApplicationId { get; set; }
 }

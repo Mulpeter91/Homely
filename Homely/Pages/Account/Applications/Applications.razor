@@ -1,0 +1,49 @@
+﻿@page "/account/applications"
+
+@inject IUserAccountRepository repo
+
+<div class="page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 g-0">
+                <Sidebar Role="Roles.User" />
+            </div>
+            <div class="col-lg-10">
+                <div class="container-fluid g-0">
+                    <h3 style="padding: 10px;">All @applications.Count Applications</h3>
+
+                    @if (applications == null)
+                    {
+                        <LoadingIcon />
+                    }
+                    else
+                    {
+                        <ReportBuilder List="applications">
+                            <ReportTableTemplate>
+                                <ApplicationsReportHeader />
+                            </ReportTableTemplate>
+                            <ReportRowTemplate Context="application">
+                                <ApplicationsReportRow UserApplication="application" />
+                            </ReportRowTemplate>
+                            <EmptyListTemplate>
+                                No User Information
+                            </EmptyListTemplate>
+                        </ReportBuilder>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private UserAccount user;
+    private List<UserApplication> applications;
+    private string search = "";
+
+    protected override void OnInitialized()
+    {
+        user = repo.GetUserAccount(Guid.Parse("093b16b3-3818-49f3-b92e-d9236e284b26"));
+        applications = user.UserApplications;
+    }    
+}

@@ -1,0 +1,17 @@
+﻿@inject NavigationManager navigation
+
+<tr style="cursor: pointer;" @onclick="onClickRow">
+    <td scope="row">@UserApplication.Id.ToString().Substring(0, 6).ToUpper()</td>
+    <td>XXX XXXX</td>
+    <td>@UserApplication.Submitted</td>
+    <td>@UserApplication.Status</td>
+</tr>
+
+@code {
+    [Parameter] public UserApplication UserApplication { get; set; }
+
+    private void onClickRow()
+    {
+        navigation.NavigateTo($"account/application/{UserApplication?.Id}");
+    }
+}
