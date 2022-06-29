@@ -13,10 +13,10 @@
                     <h3 style="padding: 10px;">All @users.Count Users</h3>
                     <div class="form-inline">
                         <div class="form-group mb-2">
-                            <label for="title" class="sr-only">Title</label>
-                            <input type="text" class="form-control" id="title" placeholder="Movie Title"
-                                   @bind-value="name" @bind-value:event="oninput"
-                                   @onkeypress="@((KeyboardEventArgs e) => TitleKeyPress(e))" />
+                            <label for="title" class="sr-only">Search</label>
+                            <input type="text" class="form-control" id="title" placeholder="User Name or Email"
+                                   @bind-value="search" @bind-value:event="oninput"
+                                   @onkeypress="@((KeyboardEventArgs e) => SearchBarKeyDown(e))" />
                         </div>
                         <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="SearchUsers">Filter</button>
                         <button type="button" class="btn btn-danger mb-2 mx-sm-3" @onclick="Clear">Clear</button>
@@ -49,15 +49,14 @@
 @code {
 
     private List<UserAccount> users = new List<UserAccount>();
-    private string name = "";
-    private int selectedStatus = 0;
+    private string search = "";
 
     protected override void OnInitialized()
     {
         users = repo.GetUserAccounts();
     }
 
-    private void TitleKeyPress(KeyboardEventArgs e)
+    private void SearchBarKeyDown(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
         {
@@ -67,15 +66,12 @@
 
     private void SearchUsers()
     {
-        users = repo.GetUserAccounts().Where(x => x.PersonalInformation.FirstName.Contains(name)).ToList();
-        Console.WriteLine($"name: {name}");
-        Console.WriteLine($"status: {selectedStatus}");
+        users = repo.GetUserAccounts().Where(x => x.PersonalInformation.FirstName.Contains(search) || x.PersonalInformation.Email.Contains(search)).ToList();
     }
 
     private void Clear()
     {
         users = repo.GetUserAccounts();
-        name = "";
-        selectedStatus = 0;
+        search = "";
     }
 }

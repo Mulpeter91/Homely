@@ -2,7 +2,7 @@
 {
     public class UserAccountRepository : IUserAccountRepository
     {
-        private List<UserAccount> userAccounts = new List<UserAccount>
+        List<UserAccount> users = new List<UserAccount>
         {
             new UserAccount
             {
@@ -18,7 +18,7 @@
                 },
                 Applications = new List<Application>
                 {
-                    
+
                 }
             },
             new UserAccount
@@ -119,12 +119,12 @@
 
         public List<UserAccount> GetUserAccounts()
         {
-            return userAccounts;
+            return users;
         }
 
         public UserAccount GetUserAccount(Guid id)
         {
-            return userAccounts.Where(x => x.Id == id).FirstOrDefault();
+            return users.Where(u => u.Id == id).FirstOrDefault();
         }
     }
 }

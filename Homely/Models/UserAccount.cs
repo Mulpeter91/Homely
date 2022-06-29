@@ -2,7 +2,7 @@
 {
     public class UserAccount
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         public Roles? Role { get; set; }
         public DateTime? Created { get; set; }
         public PersonalInformation? PersonalInformation { get; set; }
@@ -25,7 +25,7 @@
 
     public enum Roles
     {
-        User, 
+        User,
         Admin
     }
 }
