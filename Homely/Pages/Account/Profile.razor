@@ -1,4 +1,5 @@
 ﻿@page "/account/profile"
+@inject IUserAccountRepository _userAccounts
 
 <div class="page">
     <div class="container-fluid">
@@ -8,7 +9,19 @@
             </div>
             <div class="col-lg-10">
                 <div class="container-fluid g-0">
-                    <h3 style="padding: 10px;">Your Profile</h3>
+                    <h3 style="padding: 10px;">@user.PersonalInformation.FirstName @user.PersonalInformation.Surname</h3>
+                    <ChangePhoto OnSelectedImage="OnChangeImage" ImageBase64="@user.PersonalInformation.ProfilePicture"/>
+                    <TextField Title="First Name" Placeholder="Please provide your first name" Value="@user.PersonalInformation.FirstName"/>
+                    <TextField Title="Surname" Placeholder="Please provide your surname" Value="@user.PersonalInformation.Surname"/>
+                    <Textarea Bio="@user.PersonalInformation.DefaultBio"/>
+                    @if (!String.IsNullOrWhiteSpace(@user.PersonalInformation.LinkedInUrl))
+                    {
+                         <SocialMediaIcon Platform="SocialMediaIcon.MediaPlatform.LinkedIn" Url="@user.PersonalInformation.LinkedInUrl"/>
+                    }
+                    @if (!String.IsNullOrWhiteSpace(@user.PersonalInformation.InstagramUrl))
+                    {
+                         <SocialMediaIcon Platform="SocialMediaIcon.MediaPlatform.Instagram" Url="@user.PersonalInformation.InstagramUrl"/>
+                    }
                 </div>
             </div>
         </div>
@@ -16,7 +29,15 @@
 </div>
 
 @code {
-    //TODO: implement bio field to user account
-    //Then have apply go to correct page
-    //Implement confirmation
+    private UserAccount user;
+
+    protected override void OnInitialized()
+    {
+        user = _userAccounts.GetUserAccount(Guid.Parse("093b16b3-3818-49f3-b92e-d9236e284b26"));
+    }
+
+    private void OnChangeImage(string imageBase64)
+    {
+        user.PersonalInformation.ProfilePicture = imageBase64;
+    }
 }

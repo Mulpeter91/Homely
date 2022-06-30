@@ -1,0 +1,10 @@
+﻿<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Your Bio</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">
+      @Bio
+  </textarea>
+</div>
+
+@code {
+    [Parameter] public string Bio { get; set; }
+}

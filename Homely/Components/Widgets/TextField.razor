@@ -1,17 +1,25 @@
-﻿<label for="example" class="form-label">@title</label>
-<input @bind="userInput"
-       @onfocusout="(() => onFocusOut.InvokeAsync(userInput))"
-       placeholder="@placeholder"
-       type="text"
-       class="form-control"
-       id="example">
+﻿<div class="mb-3">
+    <label for="example" class="form-label">@Title</label>
+    <input @bind="value"
+           @onfocusout="(() => OnFocusOut.InvokeAsync(value))"
+           type="text"
+           placeholder="@Placeholder"
+           class="form-control"
+           id="example">
+</div>
 
 @code {
-    [Parameter] public string title { get; set; } = "Input";
-    [Parameter] public string placeholder { get; set; } = "...";
-    [Parameter] public EventCallback<string> onFocusOut { get; set; }
+    [Parameter] public string Title { get; set; } = "Input";
+    [Parameter] public string Placeholder { get; set; } = "...";
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> OnFocusOut { get; set; }
 
-    public string? userInput;
+    public string? value;
+
+    protected override void OnInitialized()
+    {
+        value = !String.IsNullOrEmpty(Value) ? Value : null;
+    }
 
     //bind is implicitly using onchange in the background
     //you need to use bind-value with bind-value:event="oninput"

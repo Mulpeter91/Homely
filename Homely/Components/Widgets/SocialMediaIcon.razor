@@ -1,0 +1,29 @@
+﻿<a href="@Url" target="_blank">
+    <img style="width:40px;" src="@icon" />
+</a>
+
+@code {
+    [Parameter] public MediaPlatform Platform { get; set; }
+    [Parameter] public string Url { get; set; }
+    private string icon;
+
+    protected override void OnInitialized()
+    {
+        switch (Platform)
+        {
+            case MediaPlatform.LinkedIn: icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/480px-LinkedIn_logo_initials.png";
+                break;
+            case MediaPlatform.Instagram: icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/132px-Instagram_logo_2016.svg.png";
+                break;
+            default:
+                icon = string.Empty;
+                break;
+        }
+    }
+
+    public enum MediaPlatform
+    {
+        LinkedIn, 
+        Instagram
+    }
+}
