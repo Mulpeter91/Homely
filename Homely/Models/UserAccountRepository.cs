@@ -67,7 +67,7 @@
                         Id = Guid.Parse("ef6e42ff-056c-4087-8417-e2422501df3a"),
                         PropertyId = Guid.Parse("2d875de7-7e33-4381-afc5-a89fbb2a40c2"),
                         Submitted = DateTime.UtcNow,
-                        Status = UserApplicationStatus.Inactive,
+                        Status = UserApplicationStatus.Expired,
                         SubmittedBio = "An old bio"
                     }
                 }
@@ -99,7 +99,7 @@
                         Id = Guid.Parse("0b797211-f68d-4a8a-9f96-d2bbeb0ca076"),
                         PropertyId = Guid.Parse("126eb269-f1ff-44f0-8b4b-7f6973497b3a"),
                         Submitted = DateTime.UtcNow,
-                        Status = UserApplicationStatus.Inactive,
+                        Status = UserApplicationStatus.Expired,
                         SubmittedBio = "An old bio"
                     }
                 }
@@ -134,7 +134,7 @@
                         Id = Guid.Parse("ca9ce6d7-abd1-47cb-800b-546ec000e58a"),
                         PropertyId = Guid.Parse("126eb269-f1ff-44f0-8b4b-7f6973497b3a"),
                         Submitted = DateTime.UtcNow,
-                        Status = UserApplicationStatus.Active,
+                        Status = UserApplicationStatus.Draft,
                         SubmittedBio = "An old bio"
                     }
                 }

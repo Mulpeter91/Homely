@@ -39,6 +39,7 @@
     {
         Draft,
         Active,
-        Inactive
+        Expired,
+        Cancelled
     }
 }

@@ -9,19 +9,14 @@
             </div>
             <div class="col-lg-10">
                 <div class="container-fluid g-0">
-                    <h3 style="padding: 10px;">@user.PersonalInformation.FirstName @user.PersonalInformation.Surname</h3>
+                    <PageTitleName Title="@userFullName" />
                     <ChangePhoto OnSelectedImage="OnChangeImage" ImageBase64="@user.PersonalInformation.ProfilePicture"/>
                     <TextField Title="First Name" Placeholder="Please provide your first name" Value="@user.PersonalInformation.FirstName"/>
                     <TextField Title="Surname" Placeholder="Please provide your surname" Value="@user.PersonalInformation.Surname"/>
-                    <Textarea Bio="@user.PersonalInformation.DefaultBio"/>
-                    @if (!String.IsNullOrWhiteSpace(@user.PersonalInformation.LinkedInUrl))
-                    {
-                         <SocialMediaIcon Platform="SocialMediaIcon.MediaPlatform.LinkedIn" Url="@user.PersonalInformation.LinkedInUrl"/>
-                    }
-                    @if (!String.IsNullOrWhiteSpace(@user.PersonalInformation.InstagramUrl))
-                    {
-                         <SocialMediaIcon Platform="SocialMediaIcon.MediaPlatform.Instagram" Url="@user.PersonalInformation.InstagramUrl"/>
-                    }
+                    <Textarea Label="Your Bio" Bio="@user.PersonalInformation.DefaultBio"/>
+                    <TextField Title="LinkedIn URL" Placeholder="..." Value="@user.PersonalInformation.LinkedInUrl"/>
+                    <TextField Title="Instagram URL" Placeholder="..." Value="@user.PersonalInformation.InstagramUrl"/>
+                    <Button text="Save" type="btn-success" onClick="onSave"/>
                 </div>
             </div>
         </div>
@@ -30,14 +25,21 @@
 
 @code {
     private UserAccount user;
+    private string userFullName;
 
     protected override void OnInitialized()
     {
         user = _userAccounts.GetUserAccount(Guid.Parse("093b16b3-3818-49f3-b92e-d9236e284b26"));
+        userFullName = user.PersonalInformation.FirstName + " " + user.PersonalInformation.Surname;
     }
 
     private void OnChangeImage(string imageBase64)
     {
         user.PersonalInformation.ProfilePicture = imageBase64;
+    }
+
+    private void onSave()
+    {
+        //do something
     }
 }

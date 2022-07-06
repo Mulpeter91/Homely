@@ -1,4 +1,6 @@
 ﻿@page "/account/review-application/{PropertyId:guid}"
+@inject IPropertyRepository properties
+@inject IUserAccountRepository users
 
 <div class="page">
     <div class="container-fluid">
@@ -8,13 +10,52 @@
             </div>
             <div class="col-lg-10">
                 <div class="container-fluid g-0">
-                    <h3 style="padding: 10px;">Draft Application</h3>
+                    <h3 style="padding: 10px;">Review Application</h3>
+                    <p>Your are submitting an application for property @property.Address.Postcode</p>
+                    <img style="width:400px" src="@property.Images[0].ImageBase64" />
+                    <Textarea Label="Your application letter" Bio="@user.PersonalInformation.DefaultBio"/>
+                    <Button text="Apply" type="btn-success" onClick="onApply" />
+                    <Button text="Save Draft" type="btn-warning" onClick="onSave" />
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<Confirmation @ref="confirmation" onConfirm="onConfirm" onCancel="onCancel">
+    <div>Are you sure you want to submit an application for: @property.Address.Postcode ?</div>
+</Confirmation>
+
 @code {
     [Parameter] public Guid PropertyId { get; set; }
+    Confirmation confirmation;
+    public Property property { get; set; }
+    public UserAccount user { get; set; }
+
+    protected override void OnInitialized()
+    {
+        property = properties.GetProperty(PropertyId);
+        user = users.GetUserAccount(Guid.Parse("093b16b3-3818-49f3-b92e-d9236e284b26"));
+    }
+
+    private void onConfirm()
+    {
+        confirmation.Hide();
+        //process application
+    }
+
+    private void onCancel()
+    {
+        confirmation.Hide();
+    }
+
+    protected void onApply()
+    {
+        confirmation.Show();
+    }
+
+    protected void onSave()
+    {
+        //save application as draft
+    }
 }
